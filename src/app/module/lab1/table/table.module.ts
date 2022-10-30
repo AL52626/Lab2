@@ -15,7 +15,8 @@ const routes: Route[] = [
   {
     path: '',
     component: TableComponent
-  }];
+  },
+  {path: '**', redirectTo: '', pathMatch: 'full'}];
 
 @NgModule({
   declarations: [
