@@ -15,6 +15,10 @@ const routes: Route[] = [
   {
     path: '',
     component: TableComponent
+  },
+  {
+    path: '/',
+    component: TableComponent
   }];
 
 @NgModule({
