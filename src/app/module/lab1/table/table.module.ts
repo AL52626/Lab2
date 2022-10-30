@@ -14,11 +14,7 @@ import {MatButtonModule} from "@angular/material/button";
 const routes: Route[] = [
   {
     path: '',
-    children: [
-      {
-        path: '/',
-        component: TableComponent
-      }]
+    component: TableComponent
   }];
 
 @NgModule({
