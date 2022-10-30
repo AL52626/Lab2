@@ -14,7 +14,7 @@ import {MatMenuModule} from "@angular/material/menu";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {HttpClientModule} from "@angular/common/http";
 import {FormBuilder} from "@angular/forms";
-import {MatFormFieldModule} from "@angular/material/form-field";
+import {domain, clientID} from 'auth_config'
 
 const env = environment;
 
@@ -31,8 +31,8 @@ const env = environment;
     HttpClientModule,
     MatProgressSpinnerModule,
     AuthModule.forRoot({
-      domain: env.auth.domain,
-      clientId: env.auth.clientID
+      domain: domain,
+      clientId: clientID
     }),
     MatMenuModule,
     BrowserAnimationsModule
