@@ -13,7 +13,7 @@ import {MatButtonModule} from "@angular/material/button";
 
 const routes: Route[] = [
   {
-    path: '',
+    path: 'Lab1/nogomet',
     component: TableComponent
   }];
 
