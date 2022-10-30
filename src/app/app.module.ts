@@ -23,6 +23,7 @@ const env = environment;
     AppComponent
   ],
   imports: [
+    RouterModule,
     RouterModule.forRoot(routes),
     BrowserModule,
     MatToolbarModule,
