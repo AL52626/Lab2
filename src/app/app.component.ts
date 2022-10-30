@@ -13,10 +13,4 @@ export class AppComponent {
   constructor(public authService: AuthService,@Inject(DOCUMENT) public doc:Document) {
   }
 
-  print(str:any){
-    console.log(str);
-    this.authService.getAccessTokenSilently().subscribe(data=> console.log(   data))
-
-
-  }
 }
