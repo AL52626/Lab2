@@ -4,7 +4,7 @@
   </button>
   <span>Football</span>
   <span class="flex-auto"></span>
-  <button *ngIf="!(authService.isAuthenticated$ | async)" mat-raised-button (click)="authService.loginWithPopup()">
+  <button *ngIf="!(authService.isAuthenticated$ | async)" mat-raised-button (click)="authService.loginWithRedirect()">
     Sign In
   </button>
   <div *ngIf="authService.isAuthenticated$ | async ">
@@ -15,7 +15,7 @@
         <span>{{user.name}}</span>
       </button>
       <mat-menu #userMenu="matMenu" class="ml-12 mt-2">
-        <button mat-menu-item (click)="authService.logout() ">Log Out</button>
+        <button mat-menu-item (click)="authService.logout({returnTo:doc.location.origin}) ">Log Out</button>
         <button mat-menu-item>{{user['role'][0]}}</button>
       </mat-menu>
     </div>
