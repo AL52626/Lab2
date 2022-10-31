@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {HttpClientModule} from "@angular/common/http";
 import {FormBuilder} from "@angular/forms";
 import {domain, clientID} from 'auth_config'
+import {APP_BASE_HREF} from "@angular/common";
 
 const env = environment;
 
@@ -38,7 +39,7 @@ const env = environment;
     MatMenuModule,
     BrowserAnimationsModule
   ],
-  providers: [FormBuilder],
+  providers: [FormBuilder,{ provide: APP_BASE_HREF, useValue: '/' }],
   bootstrap: [AppComponent]
 })
 export class AppModule {
