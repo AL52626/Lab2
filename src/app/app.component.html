@@ -4,7 +4,7 @@
   </button>
   <span>Football</span>
   <span class="flex-auto"></span>
-  <button *ngIf="!(authService.isAuthenticated$ | async)" mat-raised-button (click)="authService.loginWithRedirect()">
+  <button *ngIf="!(authService.isAuthenticated$ | async)" mat-raised-button (click)="authService.loginWithPopup()">
     Sign In
   </button>
   <div *ngIf="authService.isAuthenticated$ | async ">
