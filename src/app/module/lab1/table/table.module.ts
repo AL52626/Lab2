@@ -12,8 +12,9 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 
 const routes: Route[] = [
+  {path: '**', redirectTo:'Lab1/nogomet/'},
   {
-    path: '',
+    path: 'Lab1/nogomet/',
     component: TableComponent
   }];
 
