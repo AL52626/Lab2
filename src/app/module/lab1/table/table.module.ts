@@ -16,7 +16,7 @@ const routes: Route[] = [
   {
     path: "",
     component: TableComponent
-    , children: [{path: "**", redirectTo: ""}]
+    , children: [{path: "**", redirectTo: "/"}]
   },
 ];
 
