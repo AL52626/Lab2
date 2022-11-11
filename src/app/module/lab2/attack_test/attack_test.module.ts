@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {TableComponent} from './table.component';
+import {Attack_testComponent} from './attack_test.component';
 import {Route, RouterModule} from "@angular/router";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
@@ -10,18 +10,19 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
+import {RecaptchaModule} from "ng-recaptcha";
 
 const routes: Route[] = [
 
   {
     path: '',
-    component: TableComponent
+    component: Attack_testComponent
   },
 ];
 
 @NgModule({
   declarations: [
-    TableComponent
+    Attack_testComponent
   ],
   imports: [
     CommonModule,
@@ -35,9 +36,10 @@ const routes: Route[] = [
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    RecaptchaModule
   ]
 })
 
-export class TableModule {
+export class Attack_testModule {
 }

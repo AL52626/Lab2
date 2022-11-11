@@ -8,9 +8,9 @@ import {DOCUMENT} from "@angular/common";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'nogomet';
+  title = 'attack_test';
 
-  constructor(public authService: AuthService,@Inject(DOCUMENT) public doc:Document) {
+  constructor() {
   }
 
 }

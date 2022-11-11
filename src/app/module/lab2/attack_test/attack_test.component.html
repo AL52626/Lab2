@@ -1,119 +1,73 @@
-<div class="m-2 flex ">
-  <div class="w-1/2  flex flex-col overflow-auto max-h-[854px]">
-
-    <mat-accordion class="w-full ">
-      <ng-container *ngFor="let gameWeek of fixtureForm.controls;index as indexOfelement">
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              GW{{indexOfelement + 1}}
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <ng-container *ngFor="let fixture of gameWeek.controls">
-
-            <form [formGroup]="getAsFormGroup(fixture)" *ngIf="fixture"
-                  class="font-medium italic text-lg m-5 table-caption">
-              <div class="flex items-center ">
-              <span class=" ml-12 mr-12">    {{fixture.get('Home').value}}
-                <mat-form-field class="fuse-mat-dense flex-auto ">
-                  <input class="dark:text-white text-black " matInput
-                         [formControl]="fixture.get('HomeGoals')">
-                </mat-form-field>
-              </span>
-                <span class=" ml-12 mr-12">    {{fixture.get('Away').value}}
-                  <mat-form-field class="fuse-mat-dense flex-auto ">
-                  <input class="dark:text-white text-black " matInput
-                         [formControl]="fixture.get('AwayGoals')">
-                </mat-form-field>
-              </span>
-                <button *ngIf="(user?.role=='Admin' || user?.role=='Authenticated')"  mat-icon-button class="left-1/3" (click)="addComment(fixture)">
-                  <mat-icon> comment</mat-icon>
-                </button>
-
-              </div>
-            </form>
-
-            <form [formGroup]="getAsFormGroup(comment)" *ngFor="let comment of fixture.get('Comments').controls;index as commentIndex">
-
-              <div class="flex items-center ">
-              <span class=" ml-12 mr-12">
-                <mat-form-field class="fuse-mat-dense flex-auto ">
-                   <mat-label>Leave a comment</mat-label>
-                   <textarea matInput
-                             [formControl]="comment.get('Comment')"></textarea>
-                </mat-form-field>
-              </span>
-                <span class=" ml-12 mr-12">
-                  <mat-form-field class="fuse-mat-dense flex-auto ">
-                  <input class="dark:text-white text-black " matInput
-                         [formControl]="comment.get('User')">
-                </mat-form-field>
-              </span>
-                <span class=" ml-12 mr-12">
-                  <mat-form-field class="fuse-mat-dense flex-auto ">
-                  <input class="dark:text-white text-black " matInput
-                         [formControl]="comment.get('Date')">
-                </mat-form-field>
-              </span>
-                <button mat-icon-button [disableRipple]="false" (click)="deleteComment(fixture.get('Comments'),commentIndex)"
-                        *ngIf="(user?.role=='Authenticated' && comment.get('User')==user?.name)||user?.role=='Admin'">
-                  <mat-icon>delete_outline</mat-icon>
-                </button>
-              </div>
-            </form>
-          </ng-container>
-        </mat-expansion-panel>
-      </ng-container>
+<div class="m-2 flex flex-col">
+  <h1>Xss scripting</h1>
+  <span>Primjer skripte</span>
+  <p>{{script}}
+  </p>
+  <mat-form-field appearance="fill">
+    <mat-label>Insert your malicious script</mat-label>
+    <input matInput placeholder="Insert your malicious script" [formControl]="xssAttackForm">
+  </mat-form-field>
+  <div class="p-5">
+    <button mat-raised-button color="primary" (click)="onSubmit()">SaveRegular</button>
+  </div>
+  <div class="p-5">
+    <button mat-raised-button color="primary" (click)="onSubmitSafe()">SaveSafe</button>
+  </div>
+  {{textToShow}}
+  <div class="my-10 border-b-8"></div>
 
 
-    </mat-accordion>
-
-    <button *ngIf="(user?.role=='Admin' || user?.role=='Authenticated')" color="primary" class=" bottom-0 saveButton mb-2 w-full" mat-raised-button
-            (click)=" saveChanges() ">
-      <mat-icon>check_circle_outline</mat-icon>
-    </button>
+  <h1>Bad auth</h1>
+  <div class="flex flex-col border-4 p-3">
+    <h2>Regular (bad) signup</h2>
+    <div class=" ">
+      <mat-form-field appearance="fill" *ngIf="nameForm">
+        <mat-label>Enter your username</mat-label>
+        <input matInput [formControl]="nameForm">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="fill" *ngIf="passwordForm">
+        <mat-label>Enter your password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" [formControl]="passwordForm">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <div>
+      <button mat-raised-button color="primary" (click)="onSubmitFormRegular()">Sign Up</button>
+    </div>
+  </div>
+  <div>{{signupResult}}</div>
+  <div class="flex flex-col border-4 p-3">
+    <h2>Safe signup</h2>
+    <div class=" ">
+      <mat-form-field appearance="fill" *ngIf="nameFormSafe">
+        <mat-label>Enter your username</mat-label>
+        <input matInput [formControl]="nameFormSafe">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="fill" *ngIf="passwordFormSafe">
+        <mat-label>Enter your password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" [formControl]="passwordFormSafe">
+        <mat-error *ngIf="passwordFormSafe.invalid">{{getErrorMessage()}}</mat-error>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <re-captcha *ngIf="captcha==''" (resolved)="resolved($event)"
+                siteKey="6Ld-jPwiAAAAAFatlLW7RDjk0OGznh8ZQC6hxP6r" ></re-captcha>
+    <div>
+      <button   *ngIf="captcha!=''" mat-raised-button color="primary" [disabled]="!passwordFormSafe.valid" (click)="onSubmitFormSafe()">Sign
+        Up
+      </button>
+    </div>
   </div>
 
-
-  <div class=" w-1/2  flex overflow-auto max-h-[854px]">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8  w-full rounded-2xl  font-medium italic">
-
-      <ng-container matColumnDef="position">
-        <th mat-header-cell *matHeaderCellDef> Position</th>
-        <td mat-cell [ngStyle]="{'background-color':even ? 'rgb(103,58,183,15%)' : 'rgb(103,58,183,30%)' }"
-            *matCellDef="let element;let even=even;let i = index;"> {{i + 1}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="clubName">
-        <th mat-header-cell *matHeaderCellDef> Club Name</th>
-        <td mat-cell [ngStyle]="{'background-color':even ? 'rgb(103,58,183,15%)' : 'rgb(103,58,183,30%)' }"
-            *matCellDef="let element;let even=even;"> {{element.clubName}} </td>
-      </ng-container>
-
-      <!-- Name Column -->
-      <ng-container matColumnDef="points">
-        <th mat-header-cell *matHeaderCellDef> Points</th>
-        <td mat-cell [ngStyle]="{'background-color':even ? 'rgb(103,58,183,15%)' : 'rgb(103,58,183,30%)' }"
-            *matCellDef="let element;let even=even;"> {{element.points}} </td>
-      </ng-container>
-
-      <!-- Weight Column -->
-      <ng-container matColumnDef="goalsScored">
-        <th mat-header-cell *matHeaderCellDef> Goals Scored</th>
-        <td mat-cell [ngStyle]="{'background-color':even ? 'rgb(103,58,183,15%)' : 'rgb(103,58,183,30%)' }"
-            *matCellDef="let element;let even=even;"> {{element.goalsScored}} </td>
-      </ng-container>
-
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="goalsTaken">
-        <th mat-header-cell *matHeaderCellDef> Goals Taken</th>
-        <td mat-cell [ngStyle]="{'background-color':even ? 'rgb(103,58,183,15%)' : 'rgb(103,58,183,30%)' }"
-            *matCellDef="let element;let even=even;"> {{element.goalsTaken}} </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="columns;sticky: true"></tr>
-      <tr mat-row *matRowDef="let row; columns: columns;"></tr>
-    </table>
-  </div>
 
 </div>

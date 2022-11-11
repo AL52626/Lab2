@@ -2,30 +2,10 @@
   <button mat-button class="example-icon" aria-label="Example icon-button with menu icon">
     <mat-icon>menu</mat-icon>
   </button>
-  <span>Football</span>
+  <span>Lab2</span>
   <span class="flex-auto"></span>
-  <button *ngIf="!(authService.isAuthenticated$ | async)" mat-raised-button (click)="authService.loginWithPopup()">
-    Sign In
-  </button>
-  <div *ngIf="authService.isAuthenticated$ | async ">
-    <div *ngIf="authService.user$ | async as user">
-      <button mat-button [matMenuTriggerFor]="userMenu" >
-        <img [src]="user.picture" alt="Profile picture "
-             class="  object-contain rounded-full max-w-[20%] max-h-[20%] inline mr-2">
-        <span>{{user.name}}</span>
-      </button>
-      <mat-menu #userMenu="matMenu" class="ml-12 mt-2">
-        <button mat-menu-item (click)="authService.logout({returnTo:doc.location.origin+'/Lab1/nogomet'}) ">Log Out</button>
-        <button mat-menu-item>{{user['role'][0]}}</button>
-      </mat-menu>
-    </div>
-  </div>
 </mat-toolbar>
-<div class="justify-center flex " *ngIf="authService.isLoading$ | async;else loaded">
-  <mat-spinner [diameter]="500"></mat-spinner>
-</div>
-<ng-template #loaded>
+
   <router-outlet></router-outlet>
-</ng-template>
 
 
